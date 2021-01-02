@@ -41,11 +41,15 @@ public class MainActivity extends AppCompatActivity {
         getReposButton = findViewById(R.id.buttonGetRepos);
         reposViewModel = new ViewModelProvider(this).get(ReposViewModel.class);
 
+        // call the observers
+        ObserveRepos();
+
         getReposButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String searchTextString = searchText.getText().toString();
-                getRepos(Credentials.API_KEY, searchTextString);
+                //getRepos(Credentials.API_KEY, searchTextString);
+                getReposApi(Credentials.API_KEY, searchTextString);
             }
         });
     }
@@ -54,11 +58,21 @@ public class MainActivity extends AppCompatActivity {
         reposViewModel.getRepos().observe(this, new Observer<List<RepoModelResponse>>() {
             @Override
             public void onChanged(List<RepoModelResponse> repoModelResponses) {
-
+                if (repoModelResponses != null) {
+                    for (RepoModelResponse repoModelResponse : repoModelResponses) {
+                        Log.d("response: ", repoModelResponse.toString());
+                    }
+                }
             }
         });
     }
 
+    // calling method in activity
+    private void getReposApi(String token, String username) {
+        reposViewModel.getReposApi(token, username);
+    }
+
+/*
     private void getRepos(String token, String userName) {
         RepoServiceInterface repoServiceInterface = RetrofitInstance.getRetrofitRepoService().create(RepoServiceInterface.class);
 
@@ -91,4 +105,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+*/
 }

@@ -27,4 +27,9 @@ public class ReposRepository {
     public LiveData<List<RepoModelResponse>> getRepos() {
         return reposClient.getRepos();
     }
+
+    // calling method
+    public void getReposApi(String token, String username) {
+        reposClient.getReposApi(token, username);
+    }
 }

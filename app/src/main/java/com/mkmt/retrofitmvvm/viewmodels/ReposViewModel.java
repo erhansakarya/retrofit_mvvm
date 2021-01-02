@@ -20,4 +20,9 @@ public class ReposViewModel extends ViewModel {
     public LiveData<List<RepoModelResponse>> getRepos() {
         return reposRepository.getRepos();
     }
+
+    // calling method in view-model
+    public void getReposApi(String token, String username) {
+        reposRepository.getReposApi(token, username);
+    }
 }
